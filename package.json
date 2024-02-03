@@ -6,8 +6,7 @@
   "workspaces": [
     "backend",
     "frontend",
-    "contracts",
-    "back-end"
+    "contracts"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
