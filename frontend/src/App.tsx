@@ -1,14 +1,14 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/landing/Home";
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/app" element={<></>} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
