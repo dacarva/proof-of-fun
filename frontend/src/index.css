@@ -4,6 +4,7 @@
 
 * {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -80,15 +81,40 @@ body {
   }
 }
 
-@keyframes show {
-  from {
-    opacity: 0;
-    scale: 0.4;
-  }
-  to {
-    opacity: 1;
-    scale: 1;
-  }
+.scroller {
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.inner-scroller {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  padding-block: 20px;
+}
+
+.active-scroller {
+  overflow: hidden;
+  -webkit-mask: linear-gradient(
+    to right,
+    transparent,
+    white 20%,
+    white 80%,
+    transparent
+  );
+  mask: linear-gradient(
+    to right,
+    transparent,
+    white 20%,
+    white 80%,
+    transparent
+  );
+}
+
+.active-scroller .inner-scroller {
+  width: fit-content;
+  flex-wrap: nowrap;
+  animation: scroll 60s linear infinite;
 }
 
 .show {
@@ -100,4 +126,21 @@ body {
 
   animation-range: entry 25% cover 40%;
   animation-fill-mode: backwards;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes scroll {
+  to {
+    transform: translate(calc(-50% - 1.5rem));
+  }
 }
