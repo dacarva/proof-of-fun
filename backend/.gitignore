@@ -1,7 +1,6 @@
 **/node_modules
 dist/
 **/**/*.log
-.env
 env/
 
 # Circom build
@@ -10,3 +9,17 @@ src/services/circom/powersoftau
 src/services/circom/*.r1cs
 src/services/circom/*.sym
 src/services/circom/input.json
+
+node_modules
+
+# Hardhat files
+/cache
+/artifacts
+
+# TypeChain files
+/typechain
+/typechain-types
+
+# solidity-coverage files
+/coverage
+/coverage.json

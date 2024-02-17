@@ -20,6 +20,10 @@ import {
   exportCircuitData,
   generateVerificationSmartContract,
 } from './services/CircuitService';
+import {
+  compileSmartContract,
+  deployContract,
+} from './services/BlockchainService';
 
 const app = express();
 
@@ -85,9 +89,14 @@ app.post('/upload', (req, res) => {
           await generateProof();
           await verifyProof();
           await generateVerificationSmartContract();
+          await compileSmartContract();
+          const verifierContract = await deployContract();
 
           const combinedData = exportCircuitData();
-          res.json(combinedData);
+          res.json({
+            ...combinedData,
+            verifierContract,
+          });
           responseSent = true;
         } catch (error) {
           console.error('Error during circuit processing:', error);

@@ -50,7 +50,7 @@ const proof_path = path.join(__dirname, './circom/credit_score_js/proof.json');
 
 const verifier_smart_contract_path = path.join(
   __dirname,
-  './circom/credit_score_js/verifier.sol'
+  '../../contracts/Verifier.sol'
 );
 
 const circomCommand = `circom ${outputPath}  --r1cs --wasm -l ${node_modules_path} -o ${path.dirname(
@@ -70,6 +70,8 @@ const generateProofCommand = `snarkjs groth16 prove ${zkey1_path} ${witness_path
 const verifyProofCommand = `snarkjs groth16 verify ${verification_key_path} ${public_json_path} ${proof_path}`;
 
 const generateVerifierCommand = `snarkjs zkey export solidityverifier ${zkey1_path} ${verifier_smart_contract_path}`;
+
+const exportSolidityCallCommand = `snarkjs zkey export soliditycalldata ${public_json_path} ${proof_path}`;
 
 type CircuitParameters = {
   p_max_header_bytes: number;
@@ -104,6 +106,7 @@ export const compileCircuit = async () => {
   } catch (error) {
     // Handle errors that occurred during execution
     console.error('Error compiling circuit:', error);
+    throw error;
   }
 };
 
@@ -232,6 +235,23 @@ export const generateVerificationSmartContract = async () => {
   } catch (error) {
     // Handle errors that occurred during execution
     console.error('Error generating verification smart contract:', error);
+    throw error;
+  }
+};
+
+export const getSolidityCallData = async () => {
+  console.log('Exporting solidity call data');
+  try {
+    // Replace this command with your actual witness generation command
+    const { stdout, stderr } = await exec(exportSolidityCallCommand);
+    const outerArray = [stdout.trim()];
+    console.log('Solidity call data exported successfully:', stdout);
+    console.error('Solidity call data export output (if any):', stderr);
+
+    // Now, store this in another array
+  } catch (error) {
+    // Handle errors that occurred during execution
+    console.error('Error exporting solidity call data:', error);
     throw error;
   }
 };
