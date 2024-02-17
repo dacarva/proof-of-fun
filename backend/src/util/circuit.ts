@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { verifyDKIMSignature } from '@zk-email/helpers/dist/dkim';
 import { generateCircuitInputs, sha256Pad } from '@zk-email/helpers/';
 import { bytesToBigInt, fromHex, findSelector } from './misc';
@@ -45,13 +47,18 @@ export const getCircuitInputs = async (file: Buffer, ethAddress: string) => {
     ).toString();
     //@ts-ignore
     circuitInputs.credit_score_idx = credit_score_idx;
-    console.log('In_padded length', circuitInputs.in_padded.length);
-    console.log('Message length', dkimResult.message.length);
-    console.log('Body length', dkimResult.body.length);
-    console.log('In_body_padded length', circuitInputs.in_body_padded?.length);
     if (!circuitInputs.in_body_padded?.length) throw new Error('No body');
+    const filePath = path.join(__dirname, '../services/circom/input.json');
+    const jsonData = JSON.stringify(circuitInputs);
+    fs.writeFileSync(filePath, jsonData);
 
-    return circuitInputs;
+    return {
+      circuitInputs,
+      in_padded_length: circuitInputs.in_padded.length,
+      message_length: dkimResult.message.length,
+      body_length: dkimResult.body.length,
+      in_body_padded_length: circuitInputs.in_body_padded.length,
+    };
   } catch (error) {
     console.error('Error processing file:', error);
     return null;

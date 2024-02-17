@@ -3,3 +3,10 @@ dist/
 **/**/*.log
 .env
 env/
+
+# Circom build
+src/services/circom/credit_score_js
+src/services/circom/powersoftau
+src/services/circom/*.r1cs
+src/services/circom/*.sym
+src/services/circom/input.json
