@@ -4,10 +4,11 @@
 import express from 'express';
 import busboy from 'busboy';
 import cors from 'cors';
-import path from 'path';
-import fs from 'fs';
+
+import nodemailer from 'nodemailer';
 
 import { getCircuitInputs } from '../src/util/circuit';
+import { getRandomNumber } from './util/misc';
 import {
   compileCircuit,
   initializeCircuit,
@@ -28,10 +29,38 @@ import {
 const app = express();
 
 app.use(cors());
+app.use(express.json()); // Make sure this line is before any route definitions
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.zoho.com', //'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: 'unknown.finance@zohomail.com', //'your email',
+    pass: 'hZ5Swsxqpt!9v5Mv', //'your password',
+  },
+});
 
 // Define a route for the root path ("/")
 app.get('/', (req, res) => {
   res.send('Hello World!');
+});
+
+app.post('/request-credit-score', async (req, res) => {
+  const { name, email } = req.body;
+  const score = getRandomNumber(10, 99);
+  try {
+    await transporter.sendMail({
+      from: '"Unknown Finance" <unknown.finance@zohomail.com>', // Sender address
+      to: email, // List of receivers
+      subject: 'Your Credit Score', // Subject line
+      text: `Hello! ${name} \n\nYour credit score is: ${score}`, // Plain text body
+    });
+    res.send('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).send('Failed to send email');
+  }
 });
 
 app.post('/upload', (req, res) => {
@@ -85,11 +114,11 @@ app.post('/upload', (req, res) => {
             await contributeToPhase2();
             await exportVerificationKey();
           }
-          await generateWitness();
-          await generateProof();
-          await verifyProof();
-          await generateVerificationSmartContract();
-          await compileSmartContract();
+          // await generateWitness();
+          // await generateProof();
+          // await verifyProof();
+          // await generateVerificationSmartContract();
+          // await compileSmartContract();
           const verifierContract = await deployContract();
 
           const combinedData = exportCircuitData();
