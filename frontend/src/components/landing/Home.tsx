@@ -40,7 +40,7 @@ const steps: Step[] = [
   },
   {
     icon: <Money className="size-10" />,
-    title: "Ask for a loan",
+    title: "Apply for a loan",
     description:
       "Designate the recipient of the funds within Bild3r. This could be a real estate developer or a project team responsible for executing a development project. The recipient will receive funds as they meet predetermined milestones.",
   },
