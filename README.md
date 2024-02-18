@@ -24,6 +24,8 @@ yarn
 
 ## Initialization and setup
 
+For demo purposes we included a credit_score.eml file that can be used. Larger email files will take some minutes to process
+
 ### Frontend
 
 Get a Thirdweb ClientID and set the `.env`variable: VITE_TEMPLATE_CLIENT_ID
@@ -54,12 +56,4 @@ The current URL of the backend: https://octopus-summary-perfectly.ngrok-free.app
 
 * [Yarn](https://yarnpkg.com/) - The package manager used
 
-## Authors
 
-* **Your Name** - *Initial work* - [YourName](https://github.com/yourusername)
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
