@@ -80,6 +80,10 @@ export function getRandomInt(): number {
   return Math.floor(Math.random() * 1_000_000_000_000);
 }
 
+export function getRandomNumber(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 /**
  * Wait for a certain number of milliseconds.
  */
