@@ -30,14 +30,13 @@ const app = express();
 
 app.use(cors());
 app.use(express.json()); // Make sure this line is before any route definitions
-
 const transporter = nodemailer.createTransport({
   host: 'smtp.zoho.com', //'smtp.gmail.com',
   port: 465,
   secure: true,
   auth: {
-    user: 'unknown.finance@zohomail.com', //'your email',
-    pass: 'hZ5Swsxqpt!9v5Mv', //'your password',
+    user: process.env.SENDER_EMAIL, //'your email',
+    pass: process.env.EMAIL_PASSWORD, //'your password',
   },
 });
 
