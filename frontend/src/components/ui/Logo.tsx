@@ -16,8 +16,8 @@ export default function Logo({
       <path
         d="M87 66H136"
         stroke="currentColor"
-        stroke-width="25"
-        stroke-linecap="round"
+        strokeWidth="25"
+        strokeLinecap="round"
       />
     </svg>
   );
