@@ -15,6 +15,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "yarn@4.1.0",
-  "private":true
+  "packageManager": "yarn@4.1.0"
 }
