@@ -1,26 +1,18 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  const aaveLendingPoolAddress = "0x48914C788295b5db23aF2b5F0B3BE775C4eA9440";
+  const ufiAddress = "0xa4Ffa1288d46Baf69745A9bF971B899024026d9D";
 
-  const lockedAmount = ethers.parseEther("0.001");
+  const UFiContract = await ethers.getContractFactory("UFi");
 
-  const lock = await ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  const ufiContract = await UFiContract.deploy(aaveLendingPoolAddress, ufiAddress);
 
-  await lock.waitForDeployment();
+  await ufiContract.waitForDeployment();
 
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+  console.log(`UFi deployed to: ${await ufiContract.getAddress()}`);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
