@@ -12,6 +12,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@aave/core-v3@npm:1.18.0":
+  version: 1.18.0
+  resolution: "@aave/core-v3@npm:1.18.0"
+  checksum: 10c0/babe0a4d30d2621a561d8533e97d393b13963329ab75ff5b0bc7c9b1f0dc92b69c14d719e89f75d530140a71afc401f2df054b0ae60f18d1ac9d4c15a6a9628d
+  languageName: node
+  linkType: hard
+
 "@account-abstraction/contracts@npm:^0.5.0":
   version: 0.5.0
   resolution: "@account-abstraction/contracts@npm:0.5.0"
@@ -6767,6 +6774,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "contracts@workspace:contracts"
   dependencies:
+    "@aave/core-v3": "npm:1.18.0"
     "@nomicfoundation/hardhat-chai-matchers": "npm:^2.0.0"
     "@nomicfoundation/hardhat-ethers": "npm:^3.0.0"
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.0"
