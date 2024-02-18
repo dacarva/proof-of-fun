@@ -12,14 +12,47 @@ export default function EmailForm(props: Props): JSX.Element {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
 
-  const handleEmailSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleEmailSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!email || !name) {
+      toast.error("Please enter both name and email");
+      return;
+    }
+
     setIsLoading(true);
-    setTimeout(() => {
+
+    try {
+      const userInfo = {
+        name,
+        email,
+      };
+
+      const headersList: Record<string, string> = {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      };
+
+      const response = await fetch(
+        "https://octopus-summary-perfectly.ngrok-free.app/request-credit-score",
+        {
+          method: "POST",
+          headers: headersList,
+          body: JSON.stringify(userInfo),
+        }
+      );
+
+      if (response.ok) {
+        toast.success("File uploaded successfully!");
+        setEmailSent(true);
+      } else {
+        toast.error("An error occurred. Please try again later.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred. Please try again later.");
+    } finally {
       setIsLoading(false);
-      setEmailSent(true);
-      toast.success("Email sent successfully!");
-    }, 3000);
+    }
   };
 
   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);

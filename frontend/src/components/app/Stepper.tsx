@@ -2,6 +2,7 @@ import { useState } from "react";
 import FirstStep from "@/components/app/FirstStep";
 import SecondStep from "@/components/app/SecondStep";
 import ThirdStep from "@/components/app/ThirdStep";
+import FourthStep from "@/components/app/FourthStep";
 
 export default function Stepper(): JSX.Element {
   const [currentStep, setCurrentStep] = useState(0);
@@ -11,7 +12,7 @@ export default function Stepper(): JSX.Element {
     <FirstStep setCurrentStep={setCurrentStep} />,
     <SecondStep setCurrentStep={setCurrentStep} />,
     <ThirdStep setCurrentStep={setCurrentStep} />,
-    <></>,
+    <FourthStep setCurrentStep={setCurrentStep} />,
   ];
 
   return (
