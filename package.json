@@ -2,6 +2,7 @@
   "name": "proof-of-fun",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "index.js",
   "workspaces": [
     "backend",
@@ -14,6 +15,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "yarn@4.1.0",
-  "private":true
+  "packageManager": "yarn@4.1.0"
 }

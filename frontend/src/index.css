@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  @apply bg-black text-gray-200;
+}
+
+@layer base {
+  html {
+    font-family: "Inter", sans-serif;
+  }
+
+  input {
+    @apply bg-transparent border border-yellow-500/60 active:border-yellow-500 focus:border-yellow-500 rounded-xl p-2 outline-none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-bold;
+  }
+
+  p {
+    @apply text-base;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  h4 {
+    @apply text-lg;
+  }
+
+  h5 {
+    @apply text-base;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-[6px] font-bold hover:scale-105 active:scale-100 transition rounded-lg disabled:opacity-70 disabled:cursor-not-allowed disabled:pointer-events-none;
+  }
+
+  .btn-primary {
+    @apply bg-yellow-500 text-white;
+  }
+
+  .btn-secondary {
+    @apply border border-yellow-500 text-yellow-500 bg-black;
+  }
+
+  .accent {
+    @apply text-yellow-500 font-bold;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+.scroller {
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.inner-scroller {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  padding-block: 20px;
+}
+
+.active-scroller {
+  overflow: hidden;
+  -webkit-mask: linear-gradient(
+    to right,
+    transparent,
+    white 20%,
+    white 80%,
+    transparent
+  );
+  mask: linear-gradient(
+    to right,
+    transparent,
+    white 20%,
+    white 80%,
+    transparent
+  );
+}
+
+.active-scroller .inner-scroller {
+  width: fit-content;
+  flex-wrap: nowrap;
+  animation: scroll 60s linear infinite;
+}
+
+.show {
+  view-timeline-name: --show;
+  view-timeline-axis: block;
+
+  animation-timeline: --show;
+  animation-name: show;
+
+  animation-range: entry 25% cover 40%;
+  animation-fill-mode: backwards;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes scroll {
+  to {
+    transform: translate(calc(-50% - 1.5rem));
+  }
+}
