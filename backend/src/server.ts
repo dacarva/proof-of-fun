@@ -20,6 +20,7 @@ import {
   verifyProof,
   exportCircuitData,
   generateVerificationSmartContract,
+  getSolidityCallData,
 } from './services/CircuitService';
 import {
   compileSmartContract,
@@ -113,17 +114,19 @@ app.post('/upload', (req, res) => {
             await contributeToPhase2();
             await exportVerificationKey();
           }
-          // await generateWitness();
-          // await generateProof();
-          // await verifyProof();
-          // await generateVerificationSmartContract();
-          // await compileSmartContract();
+          await generateWitness();
+          await generateProof();
+          await verifyProof();
+          await generateVerificationSmartContract();
+          await compileSmartContract();
           const verifierContract = await deployContract();
+          const solidityCallData = await getSolidityCallData();
 
           const combinedData = exportCircuitData();
           res.json({
             ...combinedData,
             verifierContract,
+            solidityCallData,
           });
           responseSent = true;
         } catch (error) {

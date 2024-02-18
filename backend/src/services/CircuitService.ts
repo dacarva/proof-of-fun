@@ -244,9 +244,11 @@ export const getSolidityCallData = async () => {
   try {
     // Replace this command with your actual witness generation command
     const { stdout, stderr } = await exec(exportSolidityCallCommand);
-    const outerArray = [stdout.trim()];
-    console.log('Solidity call data exported successfully:', stdout);
+    const prepareData = `[${stdout}]`;
+    const data = JSON.parse(prepareData);
+    console.log('Solidity call data exported successfully:', data);
     console.error('Solidity call data export output (if any):', stderr);
+    return data;
 
     // Now, store this in another array
   } catch (error) {
