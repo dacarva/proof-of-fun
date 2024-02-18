@@ -2,12 +2,14 @@ import { useAddress } from "@thirdweb-dev/react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "@/components/ui/Loader";
+import useContractStore from "@/store";
 
 type Props = {
   setScoreProved: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function EmlFileForm(props: Props): JSX.Element {
+  const { setResponseData } = useContractStore();
   const { setScoreProved } = props;
   const address = useAddress();
   const [isLoading, setIsLoading] = useState(false);
@@ -16,8 +18,6 @@ export default function EmlFileForm(props: Props): JSX.Element {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputFile = event.target.files ? event.target.files[0] : null;
     if (inputFile && isValidEmlFile(inputFile)) {
-      console.log("valid eml file");
-      console.log(inputFile);
       setFile(inputFile);
     } else {
       setFile(null);
@@ -51,11 +51,9 @@ export default function EmlFileForm(props: Props): JSX.Element {
         };
         formData.append("userInfo", JSON.stringify(userInfo));
       } else {
-        // Handle the case where the file is not set
         throw new Error("File not selected. Please select a file.");
       }
       formData.append("emailFile", file);
-      console.log("🚀 ~ handleSubmit ~ fileState.file:", file);
 
       const response = await fetch(
         "https://octopus-summary-perfectly.ngrok-free.app/upload",
@@ -66,7 +64,7 @@ export default function EmlFileForm(props: Props): JSX.Element {
       );
 
       const data = await response.json();
-      console.log("data:", data);
+      setResponseData(data);
 
       if (response.ok) {
         setScoreProved(true);
@@ -85,8 +83,8 @@ export default function EmlFileForm(props: Props): JSX.Element {
   return (
     <form onSubmit={handleSubmit} className="flex text-left flex-col">
       <p>
-        <span className="accent">2.2</span> Download the email we sent you (.eml
-        format) and upload it here:
+        Now please download the email we sent you (.eml file) and upload it here
+        in order to verify your credit score through a zk-proof:
       </p>
       <div className="flex flex-col justify-center gap-3">
         <input
