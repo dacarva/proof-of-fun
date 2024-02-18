@@ -12,7 +12,7 @@ export default function Stepper(): JSX.Element {
     <FirstStep setCurrentStep={setCurrentStep} />,
     <SecondStep setCurrentStep={setCurrentStep} />,
     <ThirdStep setCurrentStep={setCurrentStep} />,
-    <FourthStep setCurrentStep={setCurrentStep} />,
+    <FourthStep />,
   ];
 
   return (

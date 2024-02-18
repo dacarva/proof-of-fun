@@ -11,12 +11,7 @@ import { useEffect, useState } from "react";
 import { Contract } from "ethers";
 import Loader from "@/components/ui/Loader";
 
-type Props = {
-  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function FourthStep(props: Props): JSX.Element {
+export default function FourthStep(): JSX.Element {
   const { contract } = useContract(
     "0x2C9678042D52B97D27f2bD2947F7111d93F3dD0D",
     "token"
@@ -61,6 +56,7 @@ export default function FourthStep(props: Props): JSX.Element {
     }
 
     sendTransaction();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [responseData]);
 
   return (
